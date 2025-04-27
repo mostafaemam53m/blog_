@@ -53,7 +53,7 @@ function validateRegister($name,$email,$pass){
 
 }
 
-function loginData($email,$pass){
+function validatelogin($email,$pass){
     $login_data=[
         "email"=>$email,
         "password"=>$pass

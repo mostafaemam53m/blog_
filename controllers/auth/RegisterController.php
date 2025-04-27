@@ -9,7 +9,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     if(empty(validateRegister($name,$email,$password))){
 
         saveRegisterData($name,$email,$password);
-        setMessages("seccess","register done successfully");
+        setMessages("success","register done successfully");
 
         header("location: index.php");
         exit;

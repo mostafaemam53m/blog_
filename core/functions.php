@@ -40,4 +40,36 @@ if ($result) {
 
 }
 
+
+
+
+function loginData($email, $password)
+{
+    $connection = $GLOBALS['connection'];
+
+     $email = mysqli_real_escape_string($connection, $email);
+
+    $query = "SELECT * FROM userdata WHERE email='$email'";
+
+    $result = mysqli_query($connection, $query);
+
+    if (!$result) {
+        return "Database query failed.";
+    }
+
+    $user = mysqli_fetch_assoc($result);
+
+    if ($user) {
+        if (password_verify($password, $user["password"])) {
+            $_SESSION["user_name"] = $user["user_name"]; 
+            return null;  
+        } else {
+            return "Wrong password.";
+        }
+    } else {
+        return "Wrong email.";
+    }
+}
+ 
+
 ?>
