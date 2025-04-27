@@ -1,0 +1,40 @@
+<?php
+
+if($_SERVER["REQUEST_METHOD"]=="POST"){
+
+    $name=trim($_POST["name"]);
+    $email=trim($_POST["email"]);
+    $password=trim($_POST["password"]);
+     
+    if(validateRegister($name,$email,$password)){
+
+        saveRegisterData($name,$email,$password);
+        setMessages("seccess","register done successfully");
+
+        header("location: index.php");
+        exit;
+
+
+    }else{
+
+        setMessages("danger","register filed");
+        header("location: index.php?page=register");
+        exit;
+
+
+
+    }
+
+
+
+   
+
+
+
+
+
+
+
+}
+
+?>
