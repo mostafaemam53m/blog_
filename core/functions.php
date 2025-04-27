@@ -18,14 +18,19 @@ function showMessages()
         unset($_SESSION['message']);
     }
 }
+ 
 
 function saveRegisterData($user_name,$email,$password){
+    
     $connection=$GLOBALS['connection'];
     $validPassword =password_hash($password,PASSWORD_DEFAULT);
-
-    $query="INSERT INTO userdata (id,user_name,email) values(,'$user_name','$email','$validPassword')";
-   $reslte= mysqli_query($connection,$query);
-   if ($reslte) {
+    $user_name = mysqli_real_escape_string($connection, $user_name);
+    $email = mysqli_real_escape_string($connection, $email);
+    $validPassword = mysqli_real_escape_string($connection, $validPassword);
+    
+    $query = "INSERT INTO userdata (user_name, email, password) VALUES ('$user_name', '$email', '$validPassword')";
+    $result= mysqli_query($connection,$query);
+if ($result) {
     $_SESSION['user_name'] = $user_name;
     return true;
 } else {

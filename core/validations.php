@@ -7,17 +7,18 @@ function validateRequired($value, $fieldName)
 
 function validateUserName($name){
 
-    return preg_match("/^[a-zA-Z0-9_]{3,20}$/",$name) ? null: "Invaild user name dont use spac or (! @ # $ %)";
+    return preg_match("/^[a-zA-Z0-9_]{3,20}$/",$name) ? null:"Invalid username. Do not use spaces or special characters (! @ # $ %)."
+;
 }
 function validateEmail($email)
 {
     return filter_var($email, FILTER_VALIDATE_EMAIL) ? null : "Invaild email";
 }
 
-function validatepassword($pass){
+function validatePassword($pass){
 
 
-    return preg_match('/^.{6,}$/', $pass) ? null: "password  must be more than 6 char or number";
+    return preg_match('/^.{6,}$/', $pass) ? null: "Password must be at least 6 characters.";
 
 
 }
@@ -35,6 +36,9 @@ function validateRegister($name,$email,$pass){
         if ($error = validateRequired($value, $fieldName)) {
             return $error;
         }
+    }
+    if ($error = validateUserName($name)) {
+        return $error;
     }
 
     if ($error = validateEmail($email)) {
@@ -58,7 +62,7 @@ function loginData($email,$pass){
 
     foreach($login_data as $fieldName=>$value){
 
-        if($error=validateRequired($$value,$fieldName)){
+        if($error=validateRequired($value,$fieldName)){
             return $error;
         }
     }
