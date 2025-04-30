@@ -31,6 +31,25 @@ switch ($page){
         include "./controllers/auth/LoginController.php";
         break;
 
+ case "blogs":
+   include "./views/blog/index.php";
+  break;
+case "add-blog":
+    include "./views/blog/create.php";
+     break;
+case "edit-blog":
+        include "./views/blog/edit.php";
+          break;
+
+    case "show-blog":
+            include "./views/blog/show.php";
+              break;
+    
+
+    case "BlogController":
+    include "./controllers/auth/BlogController.php";
+    break;
+
         default:
         include("./views/maintenance.php");
 

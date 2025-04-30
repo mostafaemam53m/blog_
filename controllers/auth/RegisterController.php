@@ -8,11 +8,20 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
      
     if(empty(validateRegister($name,$email,$password))){
 
-        saveRegisterData($name,$email,$password);
-        setMessages("success","register done successfully");
+        if(saveRegisterData($name,$email,$password)){
+            setMessages("success","register done successfully");
 
         header("location: index.php");
         exit;
+
+        }else{
+            setMessages("danger","issue in saving data");
+            header("location: index.php?page=register");
+            exit;
+
+
+        }
+        
 
 
     }else{

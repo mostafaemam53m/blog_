@@ -61,6 +61,9 @@ function loginData($email, $password)
 
     if ($user) {
         if (password_verify($password, $user["password"])) {
+            // get id to use it in many triks
+
+            $_SESSION["user_id"] = $user["id"]; 
             $_SESSION["user_name"] = $user["user_name"]; 
             return null;  
         } else {
