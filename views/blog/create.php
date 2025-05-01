@@ -2,7 +2,7 @@
     <div class="d-flex justify-content-center align-items-center">
         <h1 class="mb-4">Create Post</h1>
     </div>
-    <form method="post" action="index.php?page=update-blog&action=update" enctype="multipart/form-data">
+    <form method="post" action="index.php?page=store-blog&action=update" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
             <input type="text" class="form-control" name="title" id="title" placeholder="Enter title">

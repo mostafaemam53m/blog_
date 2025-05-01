@@ -31,13 +31,13 @@ switch ($page){
         include "./controllers/auth/LoginController.php";
         break;
 
- case "blogs":
-   include "./views/blog/index.php";
-  break;
-case "add-blog":
+    case "blogs":
+     include "./views/blog/index.php";
+     break;
+    case "add-blog":
     include "./views/blog/create.php";
      break;
-case "edit-blog":
+    case "edit-blog":
         include "./views/blog/edit.php";
           break;
 
@@ -45,10 +45,12 @@ case "edit-blog":
             include "./views/blog/show.php";
               break;
     
-
-    case "BlogController":
+    case "store-blog":
     include "./controllers/auth/BlogController.php";
     break;
+    case "update-store-blog":
+        include "./controllers/auth/BlogController.php";
+        break;
 
         default:
         include("./views/maintenance.php");

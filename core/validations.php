@@ -76,4 +76,20 @@ function validatelogin($email,$pass){
 
 }
 
+
+function bolgValidations($title,$image,$content){
+    $blogData=[
+        "title"=>$title,
+        "image"=>$image,
+        "content"=>$content
+    ];
+
+    foreach($blogData as $index=>$value){
+        if($error=validateRequired($value,$index)){
+            return $error;
+        }
+    }
+
+}
+
 ?>

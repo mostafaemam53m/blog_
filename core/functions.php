@@ -74,5 +74,49 @@ function loginData($email, $password)
     }
 }
  
+// to store blog
+
+function storeBlog($title, $image, $content) {
+    $title = trim($title);
+    $content = trim($content);
+
+    if ($image["error"] != 0) {
+        return "Image upload error";
+    }
+
+    $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+    $maxSize = 5 * 1024 * 1024; // 5MB
+    $fileType = $image['type'];
+    $fileSize = $image['size'];
+    $tmpName = $image['tmp_name'];
+
+    if (!in_array($fileType, $allowedTypes)) {
+        return "Type of image not supported";
+    }
+
+    if ($fileSize > $maxSize) {
+        return "Image size is larger than 5MB";
+    }
+
+    // اسم فريد للصورة
+    $image_name = time() . '_' . basename($image["name"]);
+    $relativePath = "/assets/imgs/" . $image_name;
+    $fullpath = realpath(__DIR__ . "/../assets/imgs") . "/" . $image_name;
+
+    if (!move_uploaded_file($tmpName, $fullpath)) {
+        return "Failed to upload the image";
+    }
+
+    $connection = $GLOBALS['connection'];
+    $user_id = $_SESSION["user_id"]; 
+    // تأكد أن الجلسة تحتوي user_id
+
+    $query = "INSERT INTO posts (`title`, `content`, `user_id`, `image`, `create_at`) 
+              VALUES ('$title', '$content', '$user_id', '$relativePath', NOW())";
+
+    $excute = mysqli_query($connection, $query);
+
+    return $excute ? null : "Failed to execute query";
+}
 
 ?>
