@@ -119,4 +119,77 @@ function storeBlog($title, $image, $content) {
     return $excute ? null : "Failed to execute query";
 }
 
+//  find Blogs
+
+function getBlogs(){
+    $connection=$GLOBALS["connection"];
+    $user_id=$_SESSION["user_id"];
+
+    $query="SELECT * From posts WHERE user_id=$user_id";
+
+    $excute=mysqli_query($connection,$query);
+
+
+    return mysqli_fetch_all($excute, MYSQLI_ASSOC);
+
+}
+
+
+// to find certani blog
+
+
+function findBlog($id){
+
+    $connection=$GLOBALS["connection"];
+ 
+    $query="SELECT * From posts WHERE user_id=$id";
+
+    $excute=mysqli_query($connection,$query);
+
+    
+    if(mysqli_num_rows($excute)==0){
+
+        setMessages("danger", "Blog Not Found");
+        header("location: ./index.php?page=blogs");
+        exit;
+    }
+
+    return mysqli_fetch_assoc($excute);
+
+}
+
+function deleteBlog($id){
+    findBlog($id);
+    $connection = $GLOBALS['connection'];
+    $sql = "DELETE FROM posts WHERE id = '$id'";
+    $res = mysqli_query($connection,$sql);
+    if($res){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+function updateBlog($id,$title, $content, $image){
+    $blog = findBlog($id);
+    $connection = $GLOBALS['connection'];
+    $imagePath = realpath(__DIR__.'/../'.$blog['image']);
+    if($imagePath && $image && file_exists($imagePath)){
+        unlink($imagePath);
+    }
+    $fileName = $image['name'];
+    $fullPath = realpath(__DIR__ . "/../assets/imgs") . "/" . $fileName;
+    $relativePath = "/assets/imgs/" . $fileName;
+    
+    if(!move_uploaded_file($image['tmp_name'],$fullPath)){
+        die('fail to upload image');
+    }
+    $sql = "UPDATE posts SET title = '$title' , content = '$content' , image = '$relativePath' where id = '$id'";
+    $res = mysqli_query($connection,$sql);
+    if($res){
+        return true;
+    }else{
+        return false;
+    }
+}
 ?>
